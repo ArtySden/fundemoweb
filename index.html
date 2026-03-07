@@ -3,89 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descargar Roblox</title>
+    <title>Descargador de Roblox</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
-        
+
         .container {
-            text-align: center;
             background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             max-width: 500px;
-            width: 90%;
+            width: 100%;
         }
-        
+
         h1 {
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            text-align: center;
             font-size: 28px;
         }
-        
-        p {
+
+        .subtitle {
             color: #666;
+            text-align: center;
             margin-bottom: 30px;
-            font-size: 16px;
-        }
-        
-        .btn-download {
-            display: inline-block;
-            background: #00a2ff;
-            color: white;
-            padding: 15px 40px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: background 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn-download:hover {
-            background: #0085cc;
-        }
-        
-        .loading {
-            color: #999;
             font-size: 14px;
+        }
+
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-download:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .status {
             margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .status.loading {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .features {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .features h3 {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .features ul {
+            list-style: none;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .features li {
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .features li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 8px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎮 Roblox</h1>
-        <p>Estamos redirigiendo a la descarga de Roblox...</p>
-        
-        <a href="https://www.roblox.com/download" class="btn-download">
-            Descargar ahora
-        </a>
-        
-        <div class="loading">
-            Si no se redirige automáticamente, haz clic en el botón anterior.
+        <h1>🎮 Descargador Roblox</h1>
+        <p class="subtitle">Descarga la aplicación de forma rápida y segura</p>
+
+        <div class="info-box">
+            ℹ️ Se descargará en tu carpeta de <strong>Descargas</strong>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-download" onclick="descargarRoblox()">Descargar Roblox</button>
+        </div>
+
+        <div id="status" class="status"></div>
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="features">
+            <h3>Características:</h3>
+            <ul>
+                <li>Descarga automática</li>
+                <li>Versión oficial</li>
+                <li>Sin instalador adicional</li>
+                <li>Rápido y seguro</li>
+            </ul>
         </div>
     </div>
 
     <script>
-        // Redirige automáticamente después de 2 segundos
-        setTimeout(function() {
-            window.location.href = 'https://www.roblox.com/download';
-        }, 2000);
+        async function descargarRoblox() {
+            const statusEl = document.getElementById('status');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+
+            try {
+                // Mostrar estado de carga
+                statusEl.className = 'status loading';
+                statusEl.textContent = '⏳ Preparando descarga...';
+                progressBar.style.display = 'block';
+
+                // URL oficial del instalador de Roblox para Windows
+                const robloxUrl = 'https://setup.rbxcdn.com/win/RobloxPlayerLauncher.exe';
+
+                // Crear elemento de descarga
+                const link = document.createElement('a');
+                link.href = robloxUrl;
+                link.download = 'RobloxPlayerLauncher.exe';
+
+                // Simular progreso
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    if (progress < 90) {
+                        progress += Math.random() * 30;
+                        progressFill.style.width = progress + '%';
+                    }
+                }, 200);
+
+                // Iniciar descarga
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Completar progreso
+                clearInterval(progressInterval);
+                progressFill.style.width = '100%';
+
+                // Mostrar éxito
+                statusEl.className = 'status success';
+                statusEl.textContent = '✓ Descarga iniciada correctamente. El archivo se guardará en tu carpeta de Descargas. Instala Roblox y ¡diviértete jugando!';
+
+                // Limpiar después de 5 segundos
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                    progressFill.style.width = '0%';
+                }, 5000);
+
+            } catch (error) {
+                statusEl.className = 'status error';
+                statusEl.textContent = '✗ Error en la descarga: ' + error.message;
+                progressBar.style.display = 'none';
+                progressFill.style.width = '0%';
+            }
+        }
     </script>
 </body>
 </html>
